@@ -18,7 +18,7 @@ const ItemEditora = ({ img, nomeEditora, id }) => {
   const navigation = useNavigation();
 
   const handlePress = () => {
-    navigation.navigate('Editora', { editoraId: id });
+    navigation.navigate('EditoraLivros', { editoraId: id });
   }
   
   return (
@@ -86,7 +86,7 @@ const Home = () => {
     <View style={styles.container}>
       <View style={{ flex: 1 }}>
         <Header title='Home'></Header>
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <Text style={styles.sectionHeader}>EDITORAS</Text>
           <FlatList
               data={dadosEditora}

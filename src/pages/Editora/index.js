@@ -1,8 +1,31 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image } from 'react-native';
 import { DataContext } from '../../context/DataContext';
 import AxiosInstance from '../../api/AxiosInstance';
 
+const LivrosEditora = ({ imagem, nomeLivro, codigoLivro }) => {
+  const navigation = useNavigation();
+
+  const handlePress = () => {
+    navigation.navigate('Livro', { livroId: codigoLivro });
+  }
+  
+  return (
+    <TouchableOpacity onPress={handlePress}>
+        <View style={styles.itemLivros}>
+          <Image 
+            style={styles.itemPhoto}
+            source={{ uri: `data:image/png;base64,${imagem}` }}
+          />
+          <View style={styles.itemTextContainer}>
+            <Text style={styles.itemTextLivros}>{nomeLivro}</Text>
+            <Text style={styles.itemTextLivros}>ver livro</Text>
+          </View>
+        </View>
+    </TouchableOpacity>
+  )
+};
 
 const Editora = ({ route }) => {
   const { dadosUsuario } = useContext(DataContext);
@@ -24,10 +47,11 @@ const Editora = ({ route }) => {
     }
   };
 
-  if (editora && editora.listaLivrosDTO) {
-    console.log(editora.listaLivrosDTO);
-  }
-  
+  // if (editora && editora.listaLivrosDTO) {
+  //   console.log(editora.listaLivrosDTO);
+  //   console.log(editora.listaLivrosDTO[0].imagem);
+  // }
+
   if (!editora) {
     return (
       <View style={styles.container}>
@@ -39,8 +63,15 @@ const Editora = ({ route }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.nomeEditora}>{editora.nomeEditora}</Text>
-      <Text style={styles.enderecoEditora}>{editora.endereco}</Text>
-      {/* Outros atributos da editora */}
+
+      <Text style={styles.sectionHeader}>LIVROS</Text>
+          <FlatList
+              data={editora.listaLivrosDTO}
+              renderItem={({ item }) => <LivrosEditora imagem={item.imagem} nomeLivro={item.nomeLivro} codigoLivro={item.codigoLivro} />}
+              keyExtractor={item => item.codigoLivro}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+          />
     </View>
   );
 };
@@ -50,8 +81,8 @@ const Editora = ({ route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    // justifyContent: 'center',
+    // alignItems: 'center',
   },
   loadingText: {
     fontSize: 18,
@@ -66,7 +97,24 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginBottom: 10,
   },
-  // Estilos adicionais conforme necessário
+  itemPhoto: {
+    width: 200,
+    height: 200,
+  },
+  itemLivros: {
+    margin: 10,
+  },
+  itemTextLivros: {
+    color: 'rgba(0, 0, 0, 0.7)',
+    fontSize: 18,
+    marginVertical: 5,
+    marginHorizontal: 10,
+  },
+  itemTextContainer: {
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    borderBottomStartRadius: 5,
+    borderBottomEndRadius: 5,
+  },
 });
 
 export default Editora;
