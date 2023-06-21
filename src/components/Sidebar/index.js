@@ -1,24 +1,20 @@
 import React from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
-const Sidebar = ({ navigation }) => {
-  const navigateToScreen = (screenName) => {
-    navigation.navigate(screenName);
-  };
+const Sidebar = ( ) => {
+  const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => navigateToScreen('Home')}>
+      <TouchableOpacity onPress={() => navigation.navigate('Home')}>
         <Text style={styles.menuItem}>Home</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigateToScreen('Editoras')}>
+      <TouchableOpacity onPress={() => navigation.navigate('Editoras')}>
         <Text style={styles.menuItem}>Editoras</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigateToScreen('Carrinho')}>
-        <Text style={styles.menuItem}>Carrinho</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigateToScreen('Home')}>
-        <Text style={styles.menuItem}>Favoritos</Text>
+      <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+        <Text style={styles.menuItem}>Logout</Text>
       </TouchableOpacity>
     </View>
   );

@@ -11,7 +11,6 @@ const Login = ({ navigation }) => {
 
     const handleLogin = async () => {
         console.log(`E-mail: ${email} - Senha: ${senha}`)
-        // navigation.navigate('Main');
 
         try {
             //await só pode ser usado com async

@@ -12,7 +12,10 @@ import {
 
 const Favoritos = () => {
   return (
-   <Text>FAVORITOS</Text>
+    <View>
+      <Header title='FAVORITOS' />
+      <Text>FAVORITOS</Text>
+    </View>
   );
 };
 

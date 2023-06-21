@@ -12,7 +12,10 @@ import {
 
 const Carrinho = () => {
   return (
-   <Text>CARRINHO</Text>
+    <View>
+      <Header title='CARRINHO' />
+      <Text>CARRINHO</Text>
+    </View>
   );
 };
 
