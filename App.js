@@ -10,6 +10,7 @@ import Home from "./src/pages/Home";
 import Favoritos from "./src/pages/Favoritos";
 import Carrinho from "./src/pages/Carrinho";
 import Editoras from "./src/pages/Editoras";
+import Editora from "./src/pages/Editora";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -34,6 +35,7 @@ const App = () => {
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Editoras" component={Editoras} />
           <Stack.Screen name="Main" component={Tabs}/>
+          <Stack.Screen name="Editora" component={Editora} options={{ headerShown: true }}/>
         </Stack.Navigator>
       </NavigationContainer>
     </DataProvider>
