@@ -1,5 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useContext, useState, useEffect, TouchableOpacity } from 'react';
+import AxiosInstance from '../../api/AxiosInstance';
+import { DataContext } from '../../context/DataContext';
 // import Header from '../../components/Header'
 import {
   StyleSheet,
@@ -65,10 +67,29 @@ const Destaque = ({ item }) => {
 }
 
 const Home = () => {
+  const {dadosUsuario} = useContext(DataContext);
+  const [dadosEditora, setDadosEditora] = useState();
+
+  useEffect (() => {
+    getTodasEditoras();
+  }, [])
+
+  const getTodasEditoras = async () => {
+    await AxiosInstance.get(
+      '/editoras',
+      { headers: {'Authorization' : `Bearer ${dadosUsuario?.token}`} }
+    ).then( resultado => {
+      setDadosEditora(resultado.data);
+    }).catch((error) => {
+      console.log('Ocorreu um erro ao recuperar os dados das Editoras: ' + error);
+    })
+  }
+
   return (
     <View style={styles.container}>
       <StatusBar style="light" />
       <View style={{ flex: 1 }}>
+        {/* REMOVER SECTION LIST */}
         <SectionList
           contentContainerStyle={{ paddingHorizontal: 10 }}
           stickySectionHeadersEnabled={false}

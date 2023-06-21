@@ -1,14 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import AxiosInstance from '../../api/AxiosInstance'
+import { DataContext } from '../../context/DataContext';
 
 const Login = ({ navigation }) => {
 
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
+    const {armazenarDadosUsuario} = useContext(DataContext);
 
-    const handleLogin = () => {
+    const handleLogin = async () => {
         console.log(`E-mail: ${email} - Senha: ${senha}`)
-        navigation.navigate('HomeScreen')
+        // navigation.navigate('Main');
+
+        try {
+            //await só pode ser usado com async
+            const resultado = await AxiosInstance.post('auth/signin',{
+                username : email,
+                password: senha
+            });
+
+            if (resultado.status === 200) {
+
+                var jwtToken = resultado.data;
+                armazenarDadosUsuario(jwtToken['accessToken']);
+
+                navigation.navigate('Main'); //propriedade 'name'
+            } 
+        }catch(error) {
+        console.log('Erro durante o processo de login: ' + error);
+        }
     }
 
     return (

@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
-import { TouchableOpacity } from 'react-native-web';
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 
-const Sidebar = () => {
+const Sidebar = ({ navigation }) => {
   const navigateToScreen = (screenName) => {
+    navigation.navigate(screenName);
   };
 
   return (
@@ -17,7 +17,7 @@ const Sidebar = () => {
       <TouchableOpacity onPress={() => navigateToScreen('Carrinho')}>
         <Text style={styles.menuItem}>Carrinho</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigateToScreen('Favoritos')}>
+      <TouchableOpacity onPress={() => navigateToScreen('Home')}>
         <Text style={styles.menuItem}>Favoritos</Text>
       </TouchableOpacity>
     </View>

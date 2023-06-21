@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from '../../components/Header'
+import Header from '../../components/Header';
 import {
   StyleSheet,
   Text,
@@ -12,7 +12,10 @@ import {
 
 const Editoras = () => {
   return (
-   <Text>EDITORAS</Text>
+    <View>
+      <Header title='Editoras' />
+      <Text>EDITORAS</Text>
+    </View>
   );
 };
 
